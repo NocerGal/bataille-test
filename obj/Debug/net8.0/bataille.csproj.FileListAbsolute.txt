@@ -12,3 +12,4 @@
 /Users/lucschenherr/Desktop/Projet perso/Projet en C/Bataille/bataille/obj/Debug/net8.0/bataille.pdb
 /Users/lucschenherr/Desktop/Projet perso/Projet en C/Bataille/bataille/obj/Debug/net8.0/bataille.genruntimeconfig.cache
 /Users/lucschenherr/Desktop/Projet perso/Projet en C/Bataille/bataille/obj/Debug/net8.0/ref/bataille.dll
+/Users/lucschenherr/Desktop/Projet perso/Projet en C/Bataille/bataille/obj/Debug/net8.0/bataille.sourcelink.json

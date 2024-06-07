@@ -20,9 +20,11 @@ public class Soldier : ISoldier
     {
         Console.WriteLine($"{Id} attacks {soldier.Id}");
 
-        Random random = new Random();
+        Random random = new();
         int calculatedDamages = (int)(AttackPower * random.NextDouble());
-        soldier.Hp -= calculatedDamages;
+
+        int newHp = soldier.Hp - calculatedDamages;
+        soldier.Hp = newHp > 0 ? newHp : 0;
 
         Console.WriteLine($"Damage inflicted: {calculatedDamages}");
         Console.WriteLine($"Remaining HP of {soldier.Id}: {soldier.Hp}");
@@ -37,10 +39,5 @@ public class Soldier : ISoldier
             soldier.IsSoldierAlive = false;
             Console.WriteLine($"{soldier.Id} has been defeated!");
         }
-    }
-
-    public void Attack(Soldier soldier)
-    {
-        throw new NotImplementedException();
     }
 }

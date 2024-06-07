@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿
 int turn = 1;
 bool isEmpireTurn = true;
 
@@ -15,12 +12,9 @@ List<ISoldier> aliveSoldiersEmpire = empire.Soldiers.Where(soldier => soldier.Hp
 List<ISoldier> aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
 
 Console.WriteLine($"Round {turn}");
-if (aliveSoldiersEmpire.Count == 0 || aliveSoldiersRebels.Count == 0)
-{
-    return;
-}
 
-Random random = new Random();
+Random random = new();
+
 while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 {
     Console.WriteLine($"Round {turn}");
@@ -42,3 +36,5 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
     turn++;
     isEmpireTurn = !isEmpireTurn;
 }
+
+Console.WriteLine("finish");
