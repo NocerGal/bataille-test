@@ -1,14 +1,9 @@
 public static class FactoryTeam
 {
-    public static Team Create(int numberOfSoldiers, string teamName)
+    public static Team Create<T>(int numberOfSoldiers, string teamName) where T : ISoldier, new()
     {
-        List<ISoldier> soldiers = teamName switch
-        {
-            "Empire" => FactorySoldiers.CreateEmpireSoldiers(numberOfSoldiers),
-            "Rebels" => FactorySoldiers.CreateRebelsSoldiers(numberOfSoldiers),
-            _ => throw new ArgumentException("Invalid team name")
-        };
-
+        List<ISoldier> soldiers = FactorySoldiers.Create<T>(numberOfSoldiers);
         return new Team(teamName, soldiers);
     }
 }
+

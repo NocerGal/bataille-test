@@ -7,8 +7,9 @@ public class Team
     public Team(string name, List<ISoldier> soldiers)
     {
         Name = name;
-        Soldiers = soldiers;
-        Score = 0;
+        Soldiers = soldiers ?? new List<ISoldier>();
+        Score = Soldiers.Sum(s => s.Hp);
+        Console.WriteLine(Score);
     }
 
     public void UpdateScore()

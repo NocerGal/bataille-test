@@ -1,6 +1,4 @@
 public interface IAttack
 {
-    void Attack(Soldier soldier);
-
-
+    void Attack(ISoldier soldier);
 }

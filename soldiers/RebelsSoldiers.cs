@@ -1,10 +1,16 @@
-public class RebelsSoldiers : Soldier
+public class RebelsSoldier : Soldier
 {
-    public RebelsSoldiers(string id, int attackPower, int hp) : base(id, attackPower, hp) { }
+    public RebelsSoldier() : base("Rebel", 20, 100) // Valeurs par défaut
+    {
+    }
+
+    public RebelsSoldier(string id, int attackPower, int hp) : base(id, attackPower, hp)
+    {
+    }
 
     public override void Attack(ISoldier soldier)
     {
-        Console.WriteLine("Pour la princesse Organa !");
+        Console.WriteLine($"{Id} (Rebel) attacks {soldier.Id}");
         base.Attack(soldier);
     }
 }

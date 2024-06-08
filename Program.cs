@@ -1,12 +1,8 @@
-﻿
-int turn = 1;
+﻿int turn = 1;
 bool isEmpireTurn = true;
 
-Team empire = FactoryTeam.Create(int.Parse(args[0]), "Empire");
-Team rebels = FactoryTeam.Create(int.Parse(args[1]), "Rebels");
-
-empire.UpdateScore();
-rebels.UpdateScore();
+Team empire = FactoryTeam.Create<EmpireSoldier>(int.Parse(args[0]), "Empire");
+Team rebels = FactoryTeam.Create<RebelsSoldier>(int.Parse(args[1]), "Rebels");
 
 List<ISoldier> aliveSoldiersEmpire = empire.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
 List<ISoldier> aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
@@ -15,6 +11,7 @@ Console.WriteLine($"Round {turn}");
 
 Random random = new();
 
+Console.WriteLine(empire.Score);
 while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 {
     Console.WriteLine($"Round {turn}");
@@ -37,4 +34,11 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
     isEmpireTurn = !isEmpireTurn;
 }
 
-Console.WriteLine("finish");
+if (aliveSoldiersEmpire.Count > 0)
+{
+    Console.WriteLine("Empire won!");
+}
+else
+{
+    Console.WriteLine("Rebels won!");
+}

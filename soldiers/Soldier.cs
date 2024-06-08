@@ -16,6 +16,7 @@ public class Soldier : ISoldier
     public bool IsSoldierAlive { get; set; }
     public int AttackPower { get; set; }
 
+    // Marquez la méthode comme virtual
     public virtual void Attack(ISoldier soldier)
     {
         Console.WriteLine($"{Id} attacks {soldier.Id}");
@@ -27,11 +28,11 @@ public class Soldier : ISoldier
         soldier.Hp = newHp > 0 ? newHp : 0;
 
         Console.WriteLine($"Damage inflicted: {calculatedDamages}");
-        Console.WriteLine($"Remaining HP of {soldier.Id}: {soldier.Hp}");
 
         if (soldier.Hp > 0)
         {
             soldier.Hp = soldier.Hp;
+            Console.WriteLine($"Remaining HP of {soldier.Id}: {soldier.Hp}");
         }
         else
         {
