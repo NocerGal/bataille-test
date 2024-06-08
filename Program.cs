@@ -1,5 +1,6 @@
 ﻿int turn = 1;
-bool isEmpireTurn = true;
+bool isTeamBlueTurn = true;
+bool isTeamBlueWonBattle = true;
 string TeamBlue = "Empire";
 string TeamRed = "Rebels";
 
@@ -25,8 +26,9 @@ Random random = new();
 while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 {
     Console.WriteLine($"Round {turn}");
-    if (isEmpireTurn)
+    if (isTeamBlueTurn)
     {
+
         Console.WriteLine($"{TeamBlue} is more likely to win the battle!");
         ISoldier soldierEmpire = aliveSoldiersEmpire[random.Next(aliveSoldiersEmpire.Count)];
         ISoldier soldierRebels = aliveSoldiersRebels[random.Next(aliveSoldiersRebels.Count)];
@@ -34,6 +36,7 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
     }
     else
     {
+        isTeamBlueWonBattle = !isTeamBlueWonBattle;
         Console.WriteLine($"{TeamRed} is more likely to win the battle!");
         ISoldier soldierEmpire = aliveSoldiersEmpire[random.Next(aliveSoldiersEmpire.Count)];
         ISoldier soldierRebels = aliveSoldiersRebels[random.Next(aliveSoldiersRebels.Count)];
@@ -42,14 +45,16 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
     aliveSoldiersEmpire = empire.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
     aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
     turn++;
-    isEmpireTurn = !isEmpireTurn;
+    isTeamBlueTurn = !isTeamBlueTurn;
 }
 
 if (aliveSoldiersEmpire.Count > 0)
 {
-    Console.WriteLine($"{TeamBlue} won!");
+    string wonAsSuposed = isTeamBlueWonBattle ? "as planned" : "";
+    Console.WriteLine($"{TeamBlue} won {wonAsSuposed}!");
 }
 else
 {
+    string wonAsSuposed = isTeamBlueWonBattle ? "" : "as planned";
     Console.WriteLine($"{TeamRed} won!");
 }
