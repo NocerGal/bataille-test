@@ -16,7 +16,6 @@ public class Soldier : ISoldier
     public bool IsSoldierAlive { get; set; }
     public int AttackPower { get; set; }
 
-    // Marquez la méthode comme virtual
     public virtual void Attack(ISoldier soldier)
     {
         Console.WriteLine($"{Id} attacks {soldier.Id}");
@@ -38,7 +37,7 @@ public class Soldier : ISoldier
         {
             soldier.Hp = 0;
             soldier.IsSoldierAlive = false;
-            Console.WriteLine($"{soldier.Id} has been defeated!");
+            Console.WriteLine($"{soldier.Id} has been slain!");
         }
     }
 }

@@ -9,7 +9,6 @@ public class Team
         Name = name;
         Soldiers = soldiers ?? new List<ISoldier>();
         Score = Soldiers.Sum(s => s.Hp);
-        Console.WriteLine(Score);
     }
 
     public void UpdateScore()
