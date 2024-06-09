@@ -13,8 +13,6 @@ int maxAttackPower = 500;
 int minHp = 1000;
 int maxHp = 2000;
 
-
-
 if (args.Length < 2)
 {
     throw new ArgumentException("You need to provide two arguments");
@@ -41,9 +39,10 @@ void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
     isBlueTeamTurn = !isBlueTeamTurn;
 }
 
-if (isBlueTeamTurn)
+// L'équipe ayant un score initiale le moins élevé attaque en première.
+if (empire.Score < rebels.Score)
 {
-    Console.WriteLine($"{blueTeam} is more likely to win the battle!");
+    Console.WriteLine($"{redTeam} is more likely to win the battle!");
     Console.WriteLine($"Round {turn}");
     PerformAttack(aliveSoldiersEmpire, aliveSoldiersRebels, isBlueTeamTurn, blueBattleCry);
     turn++;
@@ -51,7 +50,7 @@ if (isBlueTeamTurn)
 else
 {
     isBlueTeamWonBattle = !isBlueTeamWonBattle;
-    Console.WriteLine($"{redTeam} is more likely to win the battle!");
+    Console.WriteLine($"{blueTeam} is more likely to win the battle!");
     Console.WriteLine($"Round {turn}");
     PerformAttack(aliveSoldiersRebels, aliveSoldiersEmpire, isBlueTeamTurn, redBattleCry);
     turn++;
