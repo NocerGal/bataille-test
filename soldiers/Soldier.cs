@@ -6,7 +6,8 @@ public class Soldier : ISoldier
     public bool IsSoldierAlive { get; set; }
     public int AttackPower { get; set; }
 
-    public Soldier(string id, int attackPower, int hp)
+    public Soldier(int attackPower, int hp)
+
     {
         guid = Guid.NewGuid();
         Id = guid.ToString();

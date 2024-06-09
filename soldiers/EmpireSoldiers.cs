@@ -1,10 +1,7 @@
 public class EmpireSoldier : Soldier
 {
-    public string BattleCry { get; }
-
-    public EmpireSoldier(string id, int attackPower, int hp, string battleCry) : base(id, attackPower, hp)
+    public EmpireSoldier(int attackPower, int hp) : base(attackPower, hp)
     {
-        BattleCry = battleCry;
     }
 
     public override void Attack(ISoldier soldier, string battleCry)

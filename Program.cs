@@ -18,13 +18,13 @@ if (args.Length < 2)
     throw new ArgumentException("You need to provide two arguments");
 }
 
-if (int.Parse(args[0]) == 0 || int.Parse(args[1]) == 0)
+if (quantityBlueSoldiers == 0 || quantityRedSoldiers == 0)
 {
     throw new ArgumentException("You need to choose two numbers that are at least above 0 for both arguments.");
 }
 
-Team empire = FactoryTeam.Create<EmpireSoldier>(quantityBlueSoldiers, blueTeam, minAttackPower, maxAttackPower, minHp, maxHp, redBattleCry);
-Team rebels = FactoryTeam.Create<RebelsSoldier>(quantityRedSoldiers, redTeam, minAttackPower, maxAttackPower, minHp, maxHp, blueBattleCry);
+Team empire = FactoryTeam.Create<EmpireSoldier>(quantityBlueSoldiers, blueTeam, minAttackPower, maxAttackPower, minHp, maxHp, blueBattleCry);
+Team rebels = FactoryTeam.Create<RebelsSoldier>(quantityRedSoldiers, redTeam, minAttackPower, maxAttackPower, minHp, maxHp, redBattleCry);
 
 List<ISoldier> aliveSoldiersEmpire = empire.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
 List<ISoldier> aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
@@ -43,7 +43,7 @@ void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
     isBlueTeamTurn = !isBlueTeamTurn;
 }
 
-// L'équipe ayant un score initiale le moins élevé attaque en première.
+// L'équipe ayant un score initial le moins élevé attaque en première.
 if (empire.Score < rebels.Score)
 {
     Console.WriteLine($"{redTeam} is more likely to win the battle!");

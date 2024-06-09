@@ -1,10 +1,7 @@
 public class RebelsSoldier : Soldier
 {
-    public string BattleCry { get; }
-
-    public RebelsSoldier(string id, int attackPower, int hp, string battleCry) : base(id, attackPower, hp)
+    public RebelsSoldier(int attackPower, int hp) : base(attackPower, hp)
     {
-        BattleCry = battleCry;
     }
 
     public override void Attack(ISoldier soldier, string battleCry)
