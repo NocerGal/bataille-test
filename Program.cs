@@ -23,15 +23,19 @@ List<ISoldier> aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp
 
 Random random = new();
 
+void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBlueTeamTurn)
+{
+    ISoldier attacker = attackers[random.Next(attackers.Count)];
+    ISoldier defender = defenders[random.Next(defenders.Count)];
+    attacker.Attack(defender);
+    isBlueTeamTurn = !isBlueTeamTurn;
+}
+
 if (isBlueTeamTurn)
 {
-
     Console.WriteLine($"{BlueTeam} is more likely to win the battle!");
     Console.WriteLine($"Round {turn}");
-    ISoldier soldierEmpire = aliveSoldiersEmpire[random.Next(aliveSoldiersEmpire.Count)];
-    ISoldier soldierRebels = aliveSoldiersRebels[random.Next(aliveSoldiersRebels.Count)];
-    soldierEmpire.Attack(soldierRebels);
-    isBlueTeamTurn = !isBlueTeamTurn;
+    PerformAttack(aliveSoldiersEmpire, aliveSoldiersRebels, isBlueTeamTurn);
     turn++;
 }
 else
@@ -39,10 +43,7 @@ else
     isBlueTeamWonBattle = !isBlueTeamWonBattle;
     Console.WriteLine($"{RedTeam} is more likely to win the battle!");
     Console.WriteLine($"Round {turn}");
-    ISoldier soldierEmpire = aliveSoldiersEmpire[random.Next(aliveSoldiersEmpire.Count)];
-    ISoldier soldierRebels = aliveSoldiersRebels[random.Next(aliveSoldiersRebels.Count)];
-    soldierRebels.Attack(soldierEmpire);
-    isBlueTeamTurn = !isBlueTeamTurn;
+    PerformAttack(aliveSoldiersRebels, aliveSoldiersEmpire, isBlueTeamTurn);
     turn++;
 }
 
@@ -51,17 +52,11 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
     Console.WriteLine($"Round {turn}");
     if (isBlueTeamTurn)
     {
-        ISoldier soldierEmpire = aliveSoldiersEmpire[random.Next(aliveSoldiersEmpire.Count)];
-        ISoldier soldierRebels = aliveSoldiersRebels[random.Next(aliveSoldiersRebels.Count)];
-        soldierEmpire.Attack(soldierRebels);
-        isBlueTeamTurn = !isBlueTeamTurn;
+        PerformAttack(aliveSoldiersEmpire, aliveSoldiersRebels, isBlueTeamTurn);
     }
     else
     {
-        ISoldier soldierEmpire = aliveSoldiersEmpire[random.Next(aliveSoldiersEmpire.Count)];
-        ISoldier soldierRebels = aliveSoldiersRebels[random.Next(aliveSoldiersRebels.Count)];
-        soldierRebels.Attack(soldierEmpire);
-        isBlueTeamTurn = !isBlueTeamTurn;
+        PerformAttack(aliveSoldiersRebels, aliveSoldiersEmpire, isBlueTeamTurn);
     }
     aliveSoldiersEmpire = empire.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
     aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
