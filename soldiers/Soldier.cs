@@ -1,6 +1,10 @@
 public class Soldier : ISoldier
 {
     private readonly Guid guid;
+    public string Id { get; }
+    public int Hp { get; set; }
+    public bool IsSoldierAlive { get; set; }
+    public int AttackPower { get; set; }
 
     public Soldier(string id, int attackPower, int hp)
     {
@@ -11,10 +15,6 @@ public class Soldier : ISoldier
         IsSoldierAlive = true;
     }
 
-    public string Id { get; }
-    public int Hp { get; set; }
-    public bool IsSoldierAlive { get; set; }
-    public int AttackPower { get; set; }
 
     public virtual void Attack(ISoldier soldier)
     {
