@@ -8,6 +8,6 @@ public class Team
     {
         Name = name;
         Soldiers = soldiers ?? new List<ISoldier>();
-        Score = Soldiers.Sum(s => s.Hp);
+        Score = Soldiers.Sum(soldier => soldier.Hp);
     }
 }
