@@ -1,4 +1,5 @@
 ﻿int turn = 1;
+
 bool isBlueTeamTurn = true;
 bool isBlueTeamWonBattle = true;
 string blueTeam = "Empire";
