@@ -13,10 +13,16 @@ int maxAttackPower = 500;
 int minHp = 1000;
 int maxHp = 2000;
 
+
+
+if (args.Length < 2)
+{
+    throw new ArgumentException("You need to provide two arguments");
+}
+
 if (int.Parse(args[0]) == 0 || int.Parse(args[1]) == 0)
 {
-    Console.WriteLine("You need to choose numbers that are at least above 0 for both arguments.");
-    return;
+    throw new ArgumentException("You need to choose two numbers that are at least above 0 for both arguments.");
 }
 
 Team empire = FactoryTeam.Create<EmpireSoldier>(quantityBlueSoldiers, blueTeam, minAttackPower, maxAttackPower, minHp, maxHp, redBattleCry);
