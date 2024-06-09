@@ -10,9 +10,4 @@ public class Team
         Soldiers = soldiers ?? new List<ISoldier>();
         Score = Soldiers.Sum(s => s.Hp);
     }
-
-    public void UpdateScore()
-    {
-        Score = Soldiers.Sum(s => s.Hp);
-    }
 }
