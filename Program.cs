@@ -1,5 +1,5 @@
 ﻿int turn = 1;
-bool isBlueTeamTurn = true;
+bool isBlueTeamTurn;
 bool isBlueTeamWonBattle = true;
 string blueTeam = "Empire";
 string redTeam = "Rebels";
@@ -44,8 +44,9 @@ void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
     isBlueTeamTurn = !isBlueTeamTurn;
 }
 
+isBlueTeamTurn = empire.Score < rebels.Score;
 // L'équipe ayant un score initial le moins élevé attaque en première.
-if (empire.Score < rebels.Score)
+if (isBlueTeamTurn)
 {
     messages.PrintLikelyWinner(redTeam);
     messages.PrintTurn(turn);
