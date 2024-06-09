@@ -40,4 +40,13 @@ public class Soldier : ISoldier
             Console.WriteLine($"{soldier.Id} has been slain!");
         }
     }
+
+    public virtual int CalculatedSoldierScore()
+    {
+        int rate = 10;
+        return Hp + (AttackPower * rate);
+    }
+
+
 }
+

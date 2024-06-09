@@ -1,5 +1,4 @@
 ﻿int turn = 1;
-
 bool isBlueTeamTurn = true;
 bool isBlueTeamWonBattle = true;
 string blueTeam = "Empire";
@@ -34,8 +33,12 @@ Random random = new();
 
 void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBlueTeamTurn, string battleCry)
 {
+    string attackerTeam = isBlueTeamTurn ? blueTeam : redTeam;
+    string defenderTeam = isBlueTeamTurn ? redTeam : blueTeam;
     ISoldier attacker = attackers[random.Next(attackers.Count)];
     ISoldier defender = defenders[random.Next(defenders.Count)];
+    Console.WriteLine($"Hero of {attackerTeam}: {attacker.Id} with score {attacker.CalculatedSoldierScore()}");
+    Console.WriteLine($"Hero of {defenderTeam}: {defender.Id} with score {defender.CalculatedSoldierScore()}");
     attacker.Attack(defender, battleCry);
     isBlueTeamTurn = !isBlueTeamTurn;
 }
