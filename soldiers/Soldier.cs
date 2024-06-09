@@ -16,7 +16,7 @@ public class Soldier : ISoldier
     }
 
 
-    public virtual void Attack(ISoldier soldier)
+    public virtual void Attack(ISoldier soldier, string battleCry)
     {
         Console.WriteLine($"{Id} attacks {soldier.Id}");
 

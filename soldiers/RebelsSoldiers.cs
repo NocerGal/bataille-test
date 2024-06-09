@@ -1,12 +1,15 @@
 public class RebelsSoldier : Soldier
 {
-    public RebelsSoldier(string id, int attackPower, int hp) : base(id, attackPower, hp)
+    public string BattleCry { get; }
+
+    public RebelsSoldier(string id, int attackPower, int hp, string battleCry) : base(id, attackPower, hp)
     {
+        BattleCry = battleCry;
     }
 
-    public override void Attack(ISoldier soldier)
+    public override void Attack(ISoldier soldier, string battleCry)
     {
-        Console.WriteLine("Traitor !");
-        base.Attack(soldier);
+        Console.WriteLine(battleCry);
+        base.Attack(soldier, battleCry);
     }
 }
