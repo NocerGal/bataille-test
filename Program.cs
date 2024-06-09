@@ -30,6 +30,7 @@ List<ISoldier> aliveSoldiersEmpire = empire.Soldiers.Where(soldier => soldier.Hp
 List<ISoldier> aliveSoldiersRebels = rebels.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
 
 Random random = new();
+Messages messages = new();
 
 void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBlueTeamTurn, string battleCry)
 {
@@ -37,8 +38,8 @@ void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
     string defenderTeam = isBlueTeamTurn ? redTeam : blueTeam;
     ISoldier attacker = attackers[random.Next(attackers.Count)];
     ISoldier defender = defenders[random.Next(defenders.Count)];
-    Console.WriteLine($"Hero of {attackerTeam}: {attacker.Id} with score {attacker.CalculatedSoldierScore()}");
-    Console.WriteLine($"Hero of {defenderTeam}: {defender.Id} with score {defender.CalculatedSoldierScore()}");
+    messages.PrintHeroScore(attackerTeam, attacker);
+    messages.PrintHeroScore(defenderTeam, defender);
     attacker.Attack(defender, battleCry);
     isBlueTeamTurn = !isBlueTeamTurn;
 }
@@ -46,23 +47,23 @@ void PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
 // L'équipe ayant un score initial le moins élevé attaque en première.
 if (empire.Score < rebels.Score)
 {
-    Console.WriteLine($"{redTeam} is more likely to win the battle!");
-    Console.WriteLine($"Round {turn}");
+    messages.PrintLikelyWinner(redTeam);
+    messages.PrintTurn(turn);
     PerformAttack(aliveSoldiersEmpire, aliveSoldiersRebels, isBlueTeamTurn, blueBattleCry);
     turn++;
 }
 else
 {
     isBlueTeamWonBattle = !isBlueTeamWonBattle;
-    Console.WriteLine($"{blueTeam} is more likely to win the battle!");
-    Console.WriteLine($"Round {turn}");
+    messages.PrintLikelyWinner(blueTeam);
+    messages.PrintTurn(turn);
     PerformAttack(aliveSoldiersRebels, aliveSoldiersEmpire, isBlueTeamTurn, redBattleCry);
     turn++;
 }
 
 while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 {
-    Console.WriteLine($"Round {turn}");
+    messages.PrintTurn(turn);
     if (isBlueTeamTurn)
     {
         PerformAttack(aliveSoldiersEmpire, aliveSoldiersRebels, isBlueTeamTurn, blueBattleCry);
@@ -80,10 +81,10 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 if (aliveSoldiersEmpire.Count > 0)
 {
     string wonAsSuposed = isBlueTeamWonBattle ? "as planned" : "";
-    Console.WriteLine($"{blueTeam} won {wonAsSuposed}!");
+    messages.PrintBattleWinner(blueTeam, wonAsSuposed);
 }
 else
 {
     string wonAsSuposed = isBlueTeamWonBattle ? "" : "as planned";
-    Console.WriteLine($"{redTeam} won!");
+    messages.PrintBattleWinner(redTeam, wonAsSuposed);
 }
