@@ -19,4 +19,23 @@ public class Messages
         Console.WriteLine($"{team} won {supposedWinner}!");
     }
 
+    public virtual void PrintWhoAttacksWho(string attacker, string defender)
+    {
+        Console.WriteLine($"{attacker} attacks {defender}");
+    }
+
+    public virtual void PrintInflictedDammages(int dammages)
+    {
+        Console.WriteLine($"Damages inflicted: {dammages}");
+    }
+
+    public virtual void PrintSoldierDefeated(string soldier)
+    {
+        Console.WriteLine($"{soldier} has been slain!");
+    }
+    public virtual void PrintBattleCry(string battleCry)
+    {
+        Console.WriteLine(battleCry);
+    }
+
 }

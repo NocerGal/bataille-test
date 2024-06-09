@@ -1,5 +1,6 @@
 public class Team
 {
+    // Name et Soldier, Soldiers et BattleCry en readonly pour éviter de modifier leurs valeurs. 
     public string Name { get; }
     public List<ISoldier> Soldiers { get; }
     public int Score { get; set; }
@@ -8,8 +9,9 @@ public class Team
     public Team(string name, List<ISoldier> soldiers, string battleCry)
     {
         Name = name;
-        Soldiers = soldiers ?? new List<ISoldier>();
+        Soldiers = soldiers;
         BattleCry = battleCry;
+
 
         Score = Soldiers.Sum(soldier =>
         {

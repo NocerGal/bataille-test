@@ -6,8 +6,9 @@ public class Soldier : ISoldier
     public bool IsSoldierAlive { get; set; }
     public int AttackPower { get; set; }
 
+    Messages messages = new Messages();
+    Random random = new();
     public Soldier(int attackPower, int hp)
-
     {
         guid = Guid.NewGuid();
         Id = guid.ToString();
@@ -16,18 +17,17 @@ public class Soldier : ISoldier
         IsSoldierAlive = true;
     }
 
-
     public virtual void Attack(ISoldier soldier, string battleCry)
     {
-        Console.WriteLine($"{Id} attacks {soldier.Id}");
+        messages.PrintBattleCry(battleCry);
+        messages.PrintWhoAttacksWho(Id, soldier.Id);
 
-        Random random = new();
         int calculatedDamages = (int)(AttackPower * random.NextDouble());
 
         int newHp = soldier.Hp - calculatedDamages;
         soldier.Hp = newHp > 0 ? newHp : 0;
 
-        Console.WriteLine($"Damage inflicted: {calculatedDamages}");
+        messages.PrintInflictedDammages(calculatedDamages);
 
         if (soldier.Hp > 0)
         {
@@ -38,7 +38,7 @@ public class Soldier : ISoldier
         {
             soldier.Hp = 0;
             soldier.IsSoldierAlive = false;
-            Console.WriteLine($"{soldier.Id} has been slain!");
+            messages.PrintSoldierDefeated(soldier.Id);
         }
     }
 
@@ -47,7 +47,4 @@ public class Soldier : ISoldier
         int rate = 10;
         return Hp + (AttackPower * rate);
     }
-
-
 }
-

@@ -41,7 +41,6 @@ bool PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
 {
     string attackerTeam = isBlueTeamTurn ? blueTeamName : redTeamName;
     string defenderTeam = isBlueTeamTurn ? redTeamName : blueTeamName;
-    Console.WriteLine("Luc", attackerTeam, defenderTeam);
     ISoldier attacker = attackers[random.Next(attackers.Count)];
     ISoldier defender = defenders[random.Next(defenders.Count)];
     messages.PrintHeroScore(attackerTeam, attacker);
@@ -55,6 +54,8 @@ bool PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
 // L'équipe attaquant en premier sera celle ayant le score le plus bas. 
 isBlueTeamTurn = blueTeam.Score < redTeam.Score;
 
+messages.PrintLikelyWinner($"{(isBlueTeamTurn ? redTeamName : blueTeamName)}");
+
 // Boucle simulant un combat jusqu'à ce qu'une des équipes n'ait plus de soldats.
 while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 {
@@ -62,7 +63,7 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 
     // Définition de l'équipe attaquante et de l'équipe défendante
     List<ISoldier> attacker = isBlueTeamTurn ? aliveSoldiersEmpire : aliveSoldiersRebels;
-    List<ISoldier> defender = isBlueTeamTurn ? aliveSoldiersEmpire : aliveSoldiersEmpire;
+    List<ISoldier> defender = isBlueTeamTurn ? aliveSoldiersRebels : aliveSoldiersEmpire;
 
     isBlueTeamTurn = PerformAttack(
         attacker,
@@ -79,7 +80,7 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
     isBlueTeamWonBattle = !isBlueTeamWonBattle;
 }
 
-// Fonction logique définissant l'équipe vainqueur.
+// Fonction logique définissant l'équipe vainqueur.gi
 if (aliveSoldiersEmpire.Count > 0)
 {
     string wonAsSupposed = isBlueTeamWonBattle ? "as planned" : "";
