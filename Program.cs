@@ -7,31 +7,36 @@ string blueBattleCry = "Pour la princesse Organa !";
 string redBattleCry = "Traitor !";
 int quantityBlueSoldiers = int.Parse(args[0]);
 int quantityRedSoldiers = int.Parse(args[1]);
-
 int minAttackPower = 100;
 int maxAttackPower = 500;
 int minHp = 1000;
 int maxHp = 2000;
 
+// Retourne une erreur si l'utilisateur ne fournit qu'un seul argument lors de l'appel de la fonction dans la console
 if (args.Length < 2)
 {
     throw new ArgumentException("You need to provide two arguments");
 }
-
-if (quantityBlueSoldiers == 0 || quantityRedSoldiers == 0)
+// Retourne une erreur si l'utilisateur fournit des valeurs égales ou inférieures à 0 comme arguments
+if (quantityBlueSoldiers <= 0 || quantityRedSoldiers <= 0)
 {
     throw new ArgumentException("You need to choose two numbers that are at least above 0 for both arguments.");
 }
 
+// Initialisation de l'équipe bleue et de l'équipe rouge.
 Team blueTeam = FactoryTeam.Create<EmpireSoldier>(quantityBlueSoldiers, blueTeamName, minAttackPower, maxAttackPower, minHp, maxHp, blueBattleCry);
 Team redTeam = FactoryTeam.Create<RebelsSoldier>(quantityRedSoldiers, redTeamName, minAttackPower, maxAttackPower, minHp, maxHp, redBattleCry);
 
+// Définition d'une liste de soldats encore en vie dans chaque équipe.
 List<ISoldier> aliveSoldiersEmpire = blueTeam.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
 List<ISoldier> aliveSoldiersRebels = redTeam.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
 
-Random random = new();
-Messages messages = new();
+// Instanciation de la classe Random pour générer une valeur aléatoire
+Random random = new Random();
+// Instanciation de la classe Messages pour pouvoir utiliser ses méthodes
+Messages messages = new Messages();
 
+// Fonction simulant une attaque entre les attaquants et les défenseurs, mettant à jour le tour d'équipe après chaque attaque.
 bool PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBlueTeamTurn, string battleCry)
 {
     string attackerTeam = isBlueTeamTurn ? blueTeamName : redTeamName;
@@ -46,30 +51,16 @@ bool PerformAttack(List<ISoldier> attackers, List<ISoldier> defenders, bool isBl
     return isBlueTeamTurn;
 }
 
-
+// Les règles de la bataille ne définissant pas quelle équipe attaque en premier
+// L'équipe attaquant en premier sera celle ayant le score le plus bas. 
 isBlueTeamTurn = blueTeam.Score < redTeam.Score;
 
-
-// L'équipe ayant un score initial le moins élevé attaque en première.
-if (isBlueTeamTurn)
-{
-    messages.PrintLikelyWinner(redTeamName);
-    messages.PrintTurn(turn);
-    isBlueTeamTurn = PerformAttack(aliveSoldiersEmpire, aliveSoldiersRebels, isBlueTeamTurn, blueBattleCry);
-    turn++;
-}
-else
-{
-    messages.PrintLikelyWinner(blueTeamName);
-    messages.PrintTurn(turn);
-    isBlueTeamTurn = PerformAttack(aliveSoldiersRebels, aliveSoldiersEmpire, isBlueTeamTurn, redBattleCry);
-    turn++;
-}
-
+// Boucle simulant un combat jusqu'à ce qu'une des équipes n'ait plus de soldats.
 while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
 {
     messages.PrintTurn(turn);
 
+    // Définition de l'équipe attaquante et de l'équipe défendante
     List<ISoldier> attacker = isBlueTeamTurn ? aliveSoldiersEmpire : aliveSoldiersRebels;
     List<ISoldier> defender = isBlueTeamTurn ? aliveSoldiersEmpire : aliveSoldiersEmpire;
 
@@ -78,22 +69,24 @@ while (aliveSoldiersEmpire.Count > 0 && aliveSoldiersRebels.Count > 0)
         defender,
         isBlueTeamTurn,
         isBlueTeamTurn ? blueBattleCry : redBattleCry
-    ); // Mettre à jour la valeur de isBlueTeamTurn
+    );
 
+    // Mise à jour de la liste des soldats encore en vie dans chaque équipe.
     aliveSoldiersEmpire = blueTeam.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
     aliveSoldiersRebels = redTeam.Soldiers.Where(soldier => soldier.Hp > 0).ToList();
     turn++;
+    // Actualisation de l'équipe attaquante pour le prochain tour.
     isBlueTeamWonBattle = !isBlueTeamWonBattle;
 }
 
-
+// Fonction logique définissant l'équipe vainqueur.
 if (aliveSoldiersEmpire.Count > 0)
 {
-    string wonAsSuposed = isBlueTeamWonBattle ? "as planned" : "";
-    messages.PrintBattleWinner(blueTeamName, wonAsSuposed);
+    string wonAsSupposed = isBlueTeamWonBattle ? "as planned" : "";
+    messages.PrintBattleWinner(blueTeamName, wonAsSupposed);
 }
 else
 {
-    string wonAsSuposed = isBlueTeamWonBattle ? "" : "as planned";
-    messages.PrintBattleWinner(redTeamName, wonAsSuposed);
+    string wonAsSupposed = isBlueTeamWonBattle ? "" : "as planned";
+    messages.PrintBattleWinner(redTeamName, wonAsSupposed);
 }
